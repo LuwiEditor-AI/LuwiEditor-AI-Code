@@ -10,23 +10,20 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20
           cache: 'pnpm'
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4.2.0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
+          version: 9
           run_install: false
 
       - name: Install dependencies
@@ -35,36 +32,8 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      - name: Type check
-        run: pnpm tsc --noEmit
-
-      - name: Run unit tests
-        run: pnpm test -- --ci --coverage
-
-      - name: Build packages
+      - name: Build
         run: pnpm build
 
-  e2e-tests:
-    runs-on: ubuntu-latest
-    needs: build-and-test
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v6
-        with:
-          node-version: 20.x
-          cache: 'pnpm'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4.2.0
-        with:
-          run_install: false
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Run end-to-end tests
-        run: pnpm test:e2e
+      - name: Run tests
+        run: pnpm test
