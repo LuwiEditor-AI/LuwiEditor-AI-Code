@@ -1,0 +1,42 @@
+lockfileVersion: 6.0
+
+settings:
+  auto-install-peers: true
+  shamefully-hoist: false
+
+dependencies:
+  '@editor/core':
+    specifier: ^0.1.0
+    version: 0.1.0
+
+  '@editor/render':
+    specifier: ^0.1.0
+    version: 0.1.0
+
+  '@editor/media':
+    specifier: ^0.1.0
+    version: 0.1.0
+
+packages:
+  /@editor/core/0.1.0:
+    resolution: { integrity: sha512-abc123... }
+    dependencies:
+      tslib: ^2.6.0
+
+  /@editor/render/0.1.0:
+    resolution: { integrity: sha512-def456... }
+    dependencies:
+      tslib: ^2.6.0
+      '@editor/core': 0.1.0
+
+  /@editor/media/0.1.0:
+    resolution: { integrity: sha512-ghi789... }
+    dependencies:
+      ffmpeg.wasm: ^0.10.0
+      '@editor/core': 0.1.0
+
+  /tslib/2.6.0:
+    resolution: { integrity: sha512-tslib... }
+
+  /ffmpeg.wasm/0.10.0:
+    resolution: { integrity: sha512-ffmpeg... }
